@@ -16,4 +16,4 @@ const UserSchema = new mongoose.Schema({
   price: { type: Number, required: true },
 });
 
-export const Item = mongoose.model<ItemDocument>("User", UserSchema);
+export const Item = mongoose.model<ItemDocument>("Item", UserSchema);

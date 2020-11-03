@@ -2,9 +2,9 @@ import { RequestHandler } from "express";
 import { Item } from "../models/Item";
 
 export const getAllItems: RequestHandler<null> = async (req, res, next) => {
-  throw new Error("Not implemented");
-  // const items = await Item.find({}).exec();
-  // res.send(items);
+  // throw new Error("Not implemented");
+  const items = await Item.find({}).exec();
+  res.send(items);
 };
 export const getItemById: RequestHandler = async (req, res, next) => {
   const item = await Item.findById(req.params.id);
