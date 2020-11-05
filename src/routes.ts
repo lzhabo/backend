@@ -22,10 +22,10 @@ router.put("/users/:id", userController.updateUser);
 router.delete("/users/:id", userController.deleteUser);
 
 // Post routes
-router.get("/posts/", postController.getAllUsers);
-router.get("/posts/:id", postController.getUserById);
-router.post("/posts/", postController.createUser);
-router.put("/posts/:id", postController.updateUser);
-router.delete("/posts/:id", postController.deleteUser);
+router.get("/posts/", postController.getAllPosts);
+router.get("/posts/:id", postController.getPostById);
+router.post("/posts/", postController.createPost);
+router.put("/posts/:id", postController.updatePost);
+router.delete("/posts/:id", postController.deletePost);
 
 export { router };

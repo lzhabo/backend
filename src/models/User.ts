@@ -5,11 +5,11 @@ export interface User {
   avatar?: string;
 }
 
-export type UserDocument = Document & User;
+export type TUserDocument = Document & User;
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
   avatar: { type: String, required: false },
 });
 
-export const User = mongoose.model<UserDocument>("User", UserSchema);
+export const User = mongoose.model<TUserDocument>("User", UserSchema);

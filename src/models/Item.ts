@@ -7,7 +7,7 @@ export interface IItem {
   price: number;
 }
 
-export type ItemDocument = Document & IItem;
+export type TItemDocument = Document & IItem;
 
 const UserSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -16,4 +16,4 @@ const UserSchema = new mongoose.Schema({
   price: { type: Number, required: true },
 });
 
-export const Item = mongoose.model<ItemDocument>("Item", UserSchema);
+export const Item = mongoose.model<TItemDocument>("Item", UserSchema);
