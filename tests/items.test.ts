@@ -104,6 +104,19 @@ describe("users", () => {
     await axios.delete(`http://localhost:5000/api/v1/users/${id}`);
   });
 });
+//comments
+describe("comments", () => {
+  it("create ", async () => {
+    const { data: users } = await axios.get("http://localhost:5000/api/v1/users");
+    const { data: posts } = await axios.get("http://localhost:5000/api/v1/posts");
+
+    await axios.post("http://localhost:5000/api/v1/comments", {
+      user: users[randomInteger(1, users.length)],
+      content: await getRandomDescription(),
+      post: posts[randomInteger(1, posts.length)],
+    });
+  });
+});
 
 //post tests
 describe("posts", () => {
@@ -131,7 +144,8 @@ describe("posts", () => {
   });
 
   it("delete", async () => {
-    const id = "5fa15de43c0913e32134da51";
+    //     const id = "\"5fa56c5ae11b6b408190c6ac\"";
+    const id = "5fa56c5ae11b6b408190c6a6";
     await axios.delete(`http://localhost:5000/api/v1/posts/${id}`);
   });
 });
@@ -148,7 +162,18 @@ describe("fill db", () => {
       )
     );
   }, 10000000);
+  it("fill comments", async () => {
+    const { data: users } = await axios.get("http://localhost:5000/api/v1/users");
 
+    await Promise.all(
+      Array.from({ length: 5 }, async () =>
+        axios.post("http://localhost:5000/api/v1/comments", {
+          user: users[randomInteger(1, users.length)],
+          content: await getRandomDescription(),
+        })
+      )
+    );
+  }, 10000000);
   it("fill posts", async () => {
     const { data: users } = await axios.get("http://localhost:5000/api/v1/users");
 
@@ -158,16 +183,13 @@ describe("fill db", () => {
       const description = await getRandomDescription();
       const user = users[randomInteger(1, users.length)];
       const photo = await getRandomPhotoUrl();
-      const comments = await Promise.all(
-        Array.from({ length: randomInteger(5, 15) }, getRandomDescription)
-      );
+
       return {
         location,
         likes,
         description,
         user,
         photo,
-        comments,
       };
     };
 
@@ -182,6 +204,14 @@ describe("fill db", () => {
 });
 
 describe("delete data", () => {
+  it("delete comments", async () => {
+    const { data: posts } = await axios.get("http://localhost:5000/api/v1/comments");
+    await Promise.all(
+      posts.map(({ _id }: TUserDocument) =>
+        axios.delete(`http://localhost:5000/api/v1/comments/${_id}`)
+      )
+    );
+  });
   it("delete posts", async () => {
     const { data: posts } = await axios.get("http://localhost:5000/api/v1/posts");
     await Promise.all(

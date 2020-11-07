@@ -16,7 +16,6 @@ const UserSchema = new mongoose.Schema({
   description: { type: String, required: false },
   location: { type: String, required: false },
   photo: { type: String, required: true },
-  comments: [{ type: String, required: false }],
   likes: { type: Number, required: true },
 });
 

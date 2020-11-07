@@ -2,6 +2,7 @@ import { Router } from "express";
 import * as itemController from "./controllers/itemController";
 import * as userController from "./controllers/userController";
 import * as postController from "./controllers/postController";
+import * as commentController from "./controllers/commentController";
 
 const router = Router();
 
@@ -27,5 +28,12 @@ router.get("/posts/:id", postController.getPostById);
 router.post("/posts/", postController.createPost);
 router.put("/posts/:id", postController.updatePost);
 router.delete("/posts/:id", postController.deletePost);
+
+// Comment routes
+router.get("/comments/", commentController.getAllComments);
+router.get("/comments/:id", commentController.getCommentById);
+router.post("/comments/", commentController.createComment);
+router.put("/comments/:id", commentController.updateComment);
+router.delete("/comments/:id", commentController.deleteComment);
 
 export { router };
